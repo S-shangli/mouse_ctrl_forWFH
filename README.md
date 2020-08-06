@@ -7,4 +7,7 @@ move the mouse right and left,
  at every intervals
 
 ## why for WFH?
-HAHA.. i don't know.
+HAHAHA... i don't know.
+
+## software requirement
+* HSP 3.51 or 3.6beta3
