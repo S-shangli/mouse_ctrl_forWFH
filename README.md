@@ -10,4 +10,5 @@ move the mouse right and left,
 HAHAHA... i don't know.
 
 ## software requirement
+* Windows OS
 * HSP 3.51 or 3.6beta3
