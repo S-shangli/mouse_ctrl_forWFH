@@ -1,0 +1,97 @@
+; mouse_ctrl for work from home
+;
+;  move the mouse right and left
+;  and click the right and left button
+;  at every intervals
+;
+
+#include "user32.as"
+
+
+; settings
+mouse_move_distance=3
+interval_sec=120
+window_size_x=360
+window_size_y=35
+
+; create main window
+screen 0 , window_size_x , window_size_y , 0 , (ginfo_dispx/2) - (window_size_x/2) , (ginfo_dispy/2) - (window_size_y/2)
+title "" ; blank window title
+cls 2
+
+
+*main_init
+	counter=interval_sec
+
+*main_loop
+	redraw 0
+	cls 2
+
+	; set indication items
+	color 255,255,255
+	mes "interval:"+counter
+	
+	pos 10,
+	winobj "msctls_progress32","",,$50000000, window_size_x-20, 10
+	hProgress = objinfo(stat, 2)
+	sendmsg hProgress, $402, (counter*100)/interval_sec
+	
+	redraw 1
+
+	; counter decrease
+	counter-=1
+
+	; check counter limit value
+	if counter <= -1 {
+		gosub *mouse_loop
+		counter = interval_sec
+	}
+
+	; wait 1sec
+	wait 100
+
+	; next loop
+	goto *main_loop
+
+	; never execute this code
+	end
+
+
+*mouse_loop
+	repeat 10
+		gosub *mouse_move
+	loop
+	
+	return
+
+	; never execute this code
+	end
+
+
+*mouse_move
+	; mouse move right
+	repeat 50
+		mouse_event $1 ,  mouse_move_distance , 0 , 0 , 0
+		wait 1
+	loop
+
+	; mouse right click
+	mouse_event $18 , 0 , 0 , 0 , 0
+
+	; mouse move left
+	repeat 50
+		mouse_event $1 , -mouse_move_distance , 0 , 0 , 0
+		wait 1
+	loop
+
+	; mouse left click
+	mouse_event $6 , 0 , 0 , 0 , 0
+
+	return
+
+	; never execute this code
+	end
+
+
+; never execute this code
+end
